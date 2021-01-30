@@ -8,15 +8,19 @@
  */
 int main(int argc, char *argv[] ) {
 
-    if( argc == 2 ) {
+    if( argc == 3 ) {
         printf("The argument supplied is %s\n", argv[1]);
-        std::string fileName = argv[1];
+        std::string inputFileName = argv[1];
+        std::string outputFileName = argv[2];
+
+        std::cout << inputFileName << std::endl;
+        std::cout << outputFileName << std::endl;
         Hex_dom_gmsh_mesh gmsh_mesher;
 
         // Get starting timepoint
         auto start_reading = std::chrono::high_resolution_clock::now();
 
-        gmsh_mesher.run(fileName);
+        gmsh_mesher.run(inputFileName, outputFileName);
 
         // Get ending timepoint
         auto stop_reading = std::chrono::high_resolution_clock::now();
@@ -28,7 +32,7 @@ int main(int argc, char *argv[] ) {
                   << duration.count() << " microseconds" << std::endl;
 
     }
-    else if( argc > 2 ) {
+    else if( argc > 3 ) {
         printf("Too many arguments supplied.\n");
     }
     else {

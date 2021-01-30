@@ -10,7 +10,7 @@
 
 class Hex_dom_gmsh_mesh {
 public:
-    void run(std::string fileName){
+    void run(std::string inputFileName, std::string outputFileName) {
 
 //            const std::string data_path = "/home/claudia/CLionProjects/GMSH_Mesher/DataInput";
 //            //std::string name = "sfera";
@@ -23,7 +23,7 @@ public:
             gmsh::initialize();
 
             // Add a new model, named "sfera". If gmsh::model::add() is not called, a new default (unnamed) model will be created on the fly, if necessary.
-            std::string name = std::filesystem::path( fileName ).filename();
+            std::string name = std::filesystem::path(inputFileName ).filename();
             if(std::filesystem::path(name).has_extension())
             {
                 //remove extension
@@ -39,7 +39,7 @@ public:
 
             // Let's merge an STL file that we would like to mesh.
             try {
-                gmsh::merge(fileName);
+                gmsh::merge(inputFileName);
             } catch(...) {
                 gmsh::logger::write("Could not load STL mesh!");
                 gmsh::finalize();
@@ -109,8 +109,10 @@ public:
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/cube100x100axisAligned_gmsh.vtk");
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/sfera_gmsh.vtk");
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/bunny_gmsh.vtk");
-            std::string fileOutputName = "/home/claudia/CLionProjects/GMSH_Mesher/MeshOutput/" + name + "_gmsh.vtk";
-            gmsh::write(fileOutputName);
+            //std::string fileOutputName = "/home/claudia/CLionProjects/GMSH_Mesher/MeshOutput/" + name + "_gmsh.vtk";
+            //gmsh::write(fileOutputName);
+
+            gmsh::write(outputFileName);
 
             // This should be called when you are done using the Gmsh C++ API
             gmsh::finalize();
