@@ -102,10 +102,19 @@ public:
             // Set Element order (1: first order elements, 2: second order element)
             gmsh::option::setNumber("Mesh.ElementOrder", 1);
 
+            // Set Lenght Factor, higher is coarser
+//            gmsh::option::setNumber("Mesh.CharacteristicLengthFactor", 2);
+
+//            gmsh::option::setNumber("Mesh.MeshSizeFactor", 1);
+
+
             //Generate the 3D mesh of the current model
             gmsh::model::mesh::generate(3);
 
-            //Save it to disk
+            //Refine the mesh of the current model by uniformly splitting the elements.
+//            gmsh::model::mesh::refine();
+
+        //Save it to disk
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/cube100x100axisAligned_gmsh.vtk");
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/sfera_gmsh.vtk");
             //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/bunny_gmsh.vtk");
