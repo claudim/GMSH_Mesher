@@ -8,10 +8,11 @@
  */
 int main(int argc, char *argv[] ) {
 
-    if( argc == 3 ) {
+    if( argc == 4 ) {
         printf("The argument supplied is %s\n", argv[1]);
         std::string inputFileName = argv[1];
         std::string outputFileName = argv[2];
+        double maxMeshElementSize = std::stod(argv[3]);
 
         std::cout << inputFileName << std::endl;
         std::cout << outputFileName << std::endl;
@@ -20,7 +21,7 @@ int main(int argc, char *argv[] ) {
         // Get starting timepoint
         auto start_reading = std::chrono::high_resolution_clock::now();
 
-        gmsh_mesher.run(inputFileName, outputFileName);
+        gmsh_mesher.run(inputFileName, outputFileName, maxMeshElementSize);
 
         // Get ending timepoint
         auto stop_reading = std::chrono::high_resolution_clock::now();
@@ -32,11 +33,11 @@ int main(int argc, char *argv[] ) {
                   << duration.count() << " microseconds" << std::endl;
 
     }
-    else if( argc > 3 ) {
+    else if( argc > 4 ) {
         printf("Too many arguments supplied.\n");
     }
     else {
-        printf("One argument expected.\n");
+        printf("Three argument expected.\n");
     }
 
     return 0;

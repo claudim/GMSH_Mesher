@@ -10,7 +10,7 @@
 
 class Hex_dom_gmsh_mesh {
 public:
-    void run(std::string inputFileName, std::string outputFileName) {
+    void run(std::string inputFileName, std::string outputFileName, double maxMeshElementSize) {
 
 //            const std::string data_path = "/home/claudia/CLionProjects/GMSH_Mesher/DataInput";
 //            //std::string name = "sfera";
@@ -98,6 +98,8 @@ public:
 
             //Mesh subdivision algorithm (0: none, 1: all quadrangles, 2: all hexahedra, 3: barycentric)
             gmsh::option::setNumber("Mesh.SubdivisionAlgorithm", 2);
+           // for only tetrahedra
+            //gmsh::option::setNumber("Mesh.SubdivisionAlgorithm", 0);
 
             // Set Element order (1: first order elements, 2: second order element)
             gmsh::option::setNumber("Mesh.ElementOrder", 1);
@@ -107,6 +109,12 @@ public:
 
 //            gmsh::option::setNumber("Mesh.MeshSizeFactor", 1);
 
+
+            //Set the maximum mesh element size
+            gmsh::option::setNumber("Mesh.MeshSizeMax", maxMeshElementSize);
+            //gmsh::option::setNumber("Mesh.MeshSizeMax", 5);
+            //gmsh::option::setNumber("Mesh.MeshSizeMax", 2.5);
+            //gmsh::option::setNumber("Mesh.MeshSizeMax", 10);
 
             //Generate the 3D mesh of the current model
             gmsh::model::mesh::generate(3);
