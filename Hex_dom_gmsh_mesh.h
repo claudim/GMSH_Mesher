@@ -16,13 +16,18 @@ public:
             gmsh::initialize();
 
             // Add a new model, named "sfera". If gmsh::model::add() is not called, a new default (unnamed) model will be created on the fly, if necessary.
-            std::string name = std::filesystem::path(inputFileName ).filename();
-            if(std::filesystem::path(name).has_extension())
-            {
-                //remove extension
-                size_t lastindex = name.find_last_of(".");
-                name = name.substr(0, lastindex);
-            }
+//            std::string name = std::filesystem::path(inputFileName ).filename();
+//            if(std::filesystem::path(name).has_extension())
+//            {
+//                //remove extension
+//                size_t lastindex = name.find_last_of(".");
+//                name = name.substr(0, lastindex);
+//            }
+            size_t endIndex = inputFileName.find_last_of(".");
+            size_t startIndex = inputFileName.find_last_of("/");
+            std::string name = inputFileName.substr(startIndex+1, endIndex);
+
+
 
             gmsh::model::add(name);
 
@@ -49,7 +54,11 @@ public:
 
         // Force curves to be split on given angle:
         double curveAngle = 180;
-
+//Classify the surface mesh based on an angle threshold (the first argument, in radians),
+// and create new discrete surfaces, curves and points accordingly.
+// If the second argument is set, also create discrete curves on the boundary if the surface is open.
+// If the third argument is set, create edges and surfaces than can be reparametrized with CreateGeometry.
+// The last optional argument sets an angle threshold to force splitting of the generated curves.
         gmsh::model::mesh::classifySurfaces(angle * M_PI / 180., includeBoundary,
                                             forceParametrizablePatches,
                                             curveAngle * M_PI / 180.);

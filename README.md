@@ -8,11 +8,14 @@ A C++ implementation of full automatic tool for 3D Meshing using Gmsh Library.
 
 1. clang++ 10.0 or higher or an equivalent compiler (gcc/g++ 9.x or higher)
 2. C++ 20
-3. CMake 3.16 or newer
+3. CMake 3.17 or newer
 4. Gmsh library 5.1 (https://gmsh.info/)
 
 
 ### Installing
+
+- Install Gmsh
+
 - From terminal, move to the GMSH_Mesher directory
 
 - Create a build folder
@@ -38,15 +41,15 @@ To use the executable:
 
 -  Digit
 
-    `./GMSH_Mesher path/to/the/STLfile/filename.stl  path/to/the/output/filename.vtk resolution`
+    `./GMSH_Mesher path/to/the/STLfile/filename.stl  path/to/the/output/filename.vtk maxMeshElementSize`
     
     or 
     
-    `./GMSH_Mesher path/to/the/STLfile/filename.stl  path/to/the/output/filename.mesh resolution`
+    `./GMSH_Mesher path/to/the/STLfile/filename.stl  path/to/the/output/filename.mesh maxMeshElementSize`
     
     Example:
     
-    `./3DMesher /Users/claudia/CLionProjects/3DMesher/DataInput/bolt.stl  /Users/claudia/CLionProjects/3DMesher/MeshOutput/bolt.mesh 8`
+    `./GMSH_Mesher /Users/claudia/CLionProjects/3DMesher/DataInput/bolt.stl  /Users/claudia/CLionProjects/3DMesher/MeshOutput/bolt.mesh 8`
     
 ## Authors
 
