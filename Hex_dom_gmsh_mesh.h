@@ -12,13 +12,6 @@ class Hex_dom_gmsh_mesh {
 public:
     void run(std::string inputFileName, std::string outputFileName, double maxMeshElementSize) {
 
-//            const std::string data_path = "/home/claudia/CLionProjects/GMSH_Mesher/DataInput";
-//            //std::string name = "sfera";
-//            //std::string name = "cube100x100axisAligned";
-//            //std::string name = "bunny";
-//            std::string name = "bolt";
-//            std::string fileName = data_path + "/" + name + ".stl";
-
             // Before using any functions in the C++ API, Gmsh must be initialized
             gmsh::initialize();
 
@@ -32,10 +25,6 @@ public:
             }
 
             gmsh::model::add(name);
-            //gmsh::model::add("bunny");
-           //gmsh::model::add("bolt");
-            //gmsh::model::add("cube100x100axisAligned");
-            //gmsh::model::add("sfera");
 
             // Let's merge an STL file that we would like to mesh.
             try {
@@ -46,16 +35,17 @@ public:
             }
 
         // Angle between two triangles above which an edge is considered as sharp:
-        double angle = 40;
+        double angle = 60;
 
         // For complex geometries, patches can be too complex, too elongated or too
         // large to be parametrized; setting the following option will force the
         // creation of patches that are amenable to reparametrization:
-       // bool forceParametrizablePatches = false;
+//        bool forceParametrizablePatches = false;
         bool forceParametrizablePatches = true;
 
         // For open surfaces include the boundary edges in the classification process:
-        bool includeBoundary = true;
+        //bool includeBoundary = true;
+        bool includeBoundary = false;
 
         // Force curves to be split on given angle:
         double curveAngle = 180;
@@ -111,10 +101,7 @@ public:
 
 
             //Set the maximum mesh element size
-            gmsh::option::setNumber("Mesh.MeshSizeMax", maxMeshElementSize);
-            //gmsh::option::setNumber("Mesh.MeshSizeMax", 5);
-            //gmsh::option::setNumber("Mesh.MeshSizeMax", 2.5);
-            //gmsh::option::setNumber("Mesh.MeshSizeMax", 10);
+            gmsh::option::setNumber("Mesh.MeshSizeMax", 1.1 * maxMeshElementSize);
 
             //Generate the 3D mesh of the current model
             gmsh::model::mesh::generate(3);
@@ -122,13 +109,7 @@ public:
             //Refine the mesh of the current model by uniformly splitting the elements.
 //            gmsh::model::mesh::refine();
 
-        //Save it to disk
-            //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/cube100x100axisAligned_gmsh.vtk");
-            //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/sfera_gmsh.vtk");
-            //gmsh::write("/Users/claudia/CLionProjects/3DMesher/MeshOutput/GmshHexMeshOutput/bunny_gmsh.vtk");
-            //std::string fileOutputName = "/home/claudia/CLionProjects/GMSH_Mesher/MeshOutput/" + name + "_gmsh.vtk";
-            //gmsh::write(fileOutputName);
-
+            //Save it to disk
             gmsh::write(outputFileName);
 
             // This should be called when you are done using the Gmsh C++ API
